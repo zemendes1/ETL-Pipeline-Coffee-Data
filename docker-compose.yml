@@ -22,11 +22,10 @@ services:
       POSTGRES_USER: myuser
       POSTGRES_PASSWORD: mypassword
       POSTGRES_DB: mydatabase
-      AWS_ACCESS_KEY_ID: your_access_key
-      AWS_SECRET_ACCESS_KEY: your_secret_key
-      S3_BUCKET: your_bucket_name
     depends_on:
       - postgres
+    env_file:
+      - .env
     volumes:
       - ./src:/app/src
     command: python /app/src/main.py
