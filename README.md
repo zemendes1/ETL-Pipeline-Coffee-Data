@@ -1,7 +1,7 @@
-# OpenSC-Stack-Demonstration
+# Tech-Stack-Demonstration
 
 ## Overview
-This project demonstrates a simple Python application that interacts with AWS S3 and a PostgreSQL database. The application is containerized using Docker.
+This project demonstrates a simple Python application that interacts with AWS S3 and a PostgreSQL database. The application is containerized using Docker and integrates with Grafana for visualization purposes.
 
 ## Features
 - Connects to a PostgreSQL database.
@@ -41,3 +41,17 @@ This project demonstrates a simple Python application that interacts with AWS S3
 ## Usage
 - The application connects to a PostgreSQL database running in a Docker container.
 - It downloads a specified file from an S3 bucket and saves it locally.
+
+## Demonstration
+
+![Demo Image 1](images/aws.png)
+*Figure 1: AWS S3 Bucket.*
+
+![Demo Image 2](images/docker.png)
+*Figure 2: Docker containerization of all services.*
+
+![Demo Image 2](images/dBeaver.png)
+*Figure 3: Database inspection using dBeaver.*
+
+![Demo Image 2](images/Grafana.png)
+*Figure 4: Grafana monitoring dashboard displaying application metrics.*
