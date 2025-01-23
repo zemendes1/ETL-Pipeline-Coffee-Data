@@ -22,7 +22,7 @@ This project demonstrates a simple Python application that interacts with AWS S3
    ```
 
 2. **Create a `.env` file:**
-   Create a `.env` file in the root directory of the project to store your AWS credentials:
+   Edit the `.env` file in the root directory of the project to store your AWS credentials:
    ```env
    AWS_ACCESS_KEY_ID=your_access_key
    AWS_SECRET_ACCESS_KEY=your_secret_key
@@ -41,10 +41,3 @@ This project demonstrates a simple Python application that interacts with AWS S3
 ## Usage
 - The application connects to a PostgreSQL database running in a Docker container.
 - It downloads a specified file from an S3 bucket and saves it locally.
-
-## Pre-commit Hooks
-This project uses pre-commit hooks to ensure code quality. To install the hooks, run:
-
-```bash
-pre-commit install
-```
