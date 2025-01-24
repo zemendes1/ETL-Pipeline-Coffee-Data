@@ -21,21 +21,14 @@ This project demonstrates a Python application that interacts with an S3 bucket 
    cd <repository-directory>
    ```
 
-2. **Create a `.env` file:**
-   Edit the `.env` file in the root directory of the project to store your AWS credentials:
-   ```env
-   AWS_ACCESS_KEY_ID=your_access_key
-   AWS_SECRET_ACCESS_KEY=your_secret_key
-   S3_BUCKET=your_s3_bucket
-   ```
-
-3. **Build and run the application:**
+2. **Build and run the application:**
    Use Docker Compose to build and run the application:
    ```bash
-   docker-compose up --build
+   docker compose build
+   docker compose up
    ```
 
-4. **Access the application:**
+3. **Access the application:**
    The application will run and execute the `main.py` script, which includes downloading a file from S3.
 
 ## Usage
