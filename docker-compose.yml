@@ -24,8 +24,6 @@ services:
       POSTGRES_DB: mydatabase
     depends_on:
       - postgres
-    env_file:
-      - .env
     volumes:
       - ./src:/app/src
     command: python /app/src/main.py
@@ -62,8 +60,23 @@ services:
     volumes:
       - pg_grafana:/var/lib/postgresql/data
 
+  minio:
+    container_name: minio
+    image: quay.io/minio/minio
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: ROOTNAME
+      MINIO_ROOT_PASSWORD: CHANGEME123
+    volumes:
+      - minio_data:/data
+    command: server /data --console-address ":9001"
+
 volumes:
   postgres_data:
+  minio_data:
+    driver: local
   pg_grafana:
     driver: local
   grafana:

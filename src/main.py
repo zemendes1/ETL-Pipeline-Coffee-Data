@@ -3,12 +3,10 @@ import psycopg2
 from dotenv import load_dotenv
 import os
 import pandas as pd
+from minio import Minio
+from minio.error import S3Error
+import time
 
-load_dotenv()
-
-AWS_ACCESS_KEY_ID = os.getenv('AWS_ACCESS_KEY_ID')
-AWS_SECRET_ACCESS_KEY = os.getenv('AWS_SECRET_ACCESS_KEY')
-AWS_REGION_NAME = os.getenv('AWS_REGION_NAME')
 
 def connect_to_postgres():
     conn = psycopg2.connect(
@@ -82,15 +80,27 @@ def populate_tables(conn, filenames):
     conn.commit()
 
 
-def download_from_s3(bucket_name, object_name, file_name=None):
-    s3_client = boto3.client('s3', aws_access_key_id=AWS_ACCESS_KEY_ID , aws_secret_access_key=AWS_SECRET_ACCESS_KEY, region_name=AWS_REGION_NAME)
-    file_name = file_name or object_name
-    s3_client.download_file(bucket_name, object_name, file_name)
-    
-    if os.path.exists(file_name):
-        print(f"File {file_name} successfully downloaded.")
-    else:
-        print(f"File {file_name} not found after download.")
+def download_from_minio(bucket_name, object_name):
+    minio_client = Minio(
+        "minio:9000",  # MinIO server address
+        access_key="ROOTNAME",  # MinIO root user
+        secret_key="CHANGEME123",  # MinIO root password
+        secure=False  # Disable HTTPS
+    )
+
+    try:
+        minio_client.bucket_exists("coffee-dataset-example")
+        print("Connection to MinIO successful!")
+    except S3Error as e:
+        print(f"MinIO S3Error: {e}")
+    except Exception as e:
+        print(f"Unexpected error: {e}")
+
+    try:
+        minio_client.fget_object(bucket_name, object_name, object_name)
+        print(f"File {object_name} successfully downloaded from MinIO.")
+    except S3Error as e:
+        print(f"Error occurred: {e}")
 
 
 if __name__ == "__main__":
@@ -99,7 +109,7 @@ if __name__ == "__main__":
     
     for fileName in fileNames:
         if not os.path.exists(fileName):
-            download_from_s3("coffe-dataset-example", fileName)
+            download_from_minio("coffee-dataset-example", fileName)  # Update with your MinIO bucket name
     
 
     connection = connect_to_postgres()
