@@ -1,8 +1,12 @@
-# ETL-Pipeline-Demonstration
+# ETL Pipeline Demonstration with Coffee Dataset
 
 ## Overview
 
 This project showcases an ETL (Extract, Transform, Load) pipeline that integrates a MinIO S3 bucket for file ingestion, processes uploaded files, and stores the data in a PostgreSQL database. The entire system is containerized using Docker and features Grafana for visualization. Airflow is used to orchestrate the pipeline.
+
+## Coffee Dataset
+
+To provide a useful example of an ETL pipeline, this project utilizes a coffee dataset that includes [historical data](https://www.kaggle.com/datasets/michals22/coffee-dataset) on coffee production by country, providing insights into global coffee trends. Additionally, the pipeline is able to process data that tracks [the evolution of coffee prices over time](https://www.kaggle.com/datasets/timmofeyy/coffee-prices-historical-data), allowing for comprehensive analysis and visualization of the coffee market dynamics.
 
 ## Prerequisites
 - Docker [(Check installation wiki)](https://docs.docker.com/engine/install/)
@@ -18,7 +22,7 @@ The project is divided into two Docker Compose stacks:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/zemendes1/ETL-Pipeline-Demonstration.git
+   git clone https://github.com/zemendes1/ETL-Pipeline-Demonstration-Coffee.git
    ```
 
 2. **Build and Run the Main Stack:**
