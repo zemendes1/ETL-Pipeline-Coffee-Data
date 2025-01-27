@@ -1,4 +1,4 @@
-# ETL Pipeline Demonstration with Coffee Dataset
+# ETL Pipeline with Coffee Data
 
 ## Overview
 
@@ -22,7 +22,7 @@ The project is divided into two Docker Compose stacks:
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/zemendes1/ETL-Pipeline-Demonstration-Coffee.git
+   git clone https://github.com/zemendes1/ETL-Pipeline-Coffee-Data.git
    ```
 
 2. **Build and Run the Main Stack:**
