@@ -75,7 +75,7 @@ The project is divided into two Docker Compose stacks:
    - MinIO S3 bucket
    -  PostgreSQL database
 
-   ![Demo Image 3](images/connection-from-airflow-to-MinIo.png)
+   ![Demo Image 3](images/connection-from-airflow-to-MinIO.png)
    *Figure 3: Connection setup from Airflow to MinIO.*
 
    ![Demo Image 4](images/connection-from-airflow-to-PostgreSQL.png)
@@ -101,7 +101,7 @@ The project is divided into two Docker Compose stacks:
 
    3. Design a dashboard to visualize your ETL pipeline data. Refer to the dashboard folder in this repository for examples.
 
-   ![Demo Image 8](images/grafana.png)
+   ![Demo Image 8](images/Grafana.png)
    *Figure 8: Example Grafana dashboard.*
 
 ## Key Features
