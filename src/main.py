@@ -21,10 +21,10 @@ def create_tables(conn):
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS events (
-	        "key" varchar NOT NULL,
-	        value jsonb NULL,
-	        processed bool NULL,
-	        CONSTRAINT events_pkey PRIMARY KEY (key)
+            "key" varchar NOT NULL,
+            value jsonb NULL,
+            processed bool NULL,
+            CONSTRAINT events_pkey PRIMARY KEY (key)
         );
         """)
 
@@ -32,14 +32,14 @@ def create_tables(conn):
         CREATE TABLE IF NOT EXISTS countries (
             country_id SERIAL PRIMARY KEY,
             country VARCHAR(100) UNIQUE,
-            coffeeType VARCHAR(100)  
+            coffeeType VARCHAR(100)
         );
         """)
 
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS coffee_domestic_consumption (
             id SERIAL PRIMARY KEY,
-            country_id INT REFERENCES countries(country_id),     
+            country_id INT REFERENCES countries(country_id),
             year VARCHAR(100),
             consumption FLOAT
         );
@@ -48,7 +48,7 @@ def create_tables(conn):
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS coffee_production (
             id SERIAL PRIMARY KEY,
-            country_id INT REFERENCES countries(country_id),     
+            country_id INT REFERENCES countries(country_id),
             year VARCHAR(100),
             production FLOAT
         );
@@ -72,7 +72,8 @@ def populate_tables(conn, filenames):
     dataFrameProduction = pd.read_csv(filenames[1])
     country_number = 0
     for country in dataFrameComsumption["Country"]:
-        cursor.execute("INSERT INTO countries (country, coffeeType) VALUES (%s, %s) ON CONFLICT (country) DO NOTHING  RETURNING country_id",
+        cursor.execute("INSERT INTO countries (country, coffeeType) VALUES (%s, %s) ON\
+                        CONFLICT (country) DO NOTHING  RETURNING country_id",
                        (country, dataFrameComsumption["Coffee type"][country_number]))
 
         result = cursor.fetchone()  # Get the inserted country_id

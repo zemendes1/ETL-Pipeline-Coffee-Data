@@ -8,7 +8,6 @@ import pandas as pd
 import subprocess
 import sys
 import pkg_resources
-import logging
 
 logging.basicConfig(level=logging.INFO,
                     format='%(asctime)s - %(levelname)s - %(message)s')
