@@ -10,7 +10,9 @@ import sys
 import pkg_resources
 import logging
 
-logging.basicConfig(level=logging.INFO, format='%(asctime)s - %(levelname)s - %(message)s')
+logging.basicConfig(level=logging.INFO,
+                    format='%(asctime)s - %(levelname)s - %(message)s')
+
 
 def check_for_new_files():
     """
@@ -32,6 +34,7 @@ def check_for_new_files():
     logging.info(f"New files detected: {[record[1] for record in records]}")
     return records
 
+
 def process_files(**kwargs):
     """
     Processes the files detected from the database and marks them as processed.
@@ -47,7 +50,7 @@ def process_files(**kwargs):
     for record in records:
         key, value = record
         logging.info(f"Processing file: {key}, uploaded at {value}")
-        
+
         bucketName, fileName = key.split('/', 1)
         logging.info(f"{bucketName},{fileName}")
 
@@ -62,6 +65,8 @@ def process_files(**kwargs):
         pg_hook.run(update_sql)
 
 # Function to install a library if not already installed
+
+
 def install(package, version="7.0.3"):
     try:
         # Check if the package is installed
@@ -69,10 +74,13 @@ def install(package, version="7.0.3"):
         logging.info(f"{package} is already installed.")
     except pkg_resources.DistributionNotFound:
         logging.info(f"{package} not found. Installing version {version}...")
-        subprocess.check_call([sys.executable, "-m", "pip", "install", f"{package}=={version}"])
+        subprocess.check_call(
+            [sys.executable, "-m", "pip", "install", f"{package}=={version}"])
+
 
 def fileProcessor(bucket_name, object_name):
-    install('minio', version="7.0.3")  # Install compatible Minio version if needed
+    # Install compatible Minio version if needed
+    install('minio', version="7.0.3")
     from minio import Minio
     from minio.error import S3Error
 
@@ -97,7 +105,8 @@ def fileProcessor(bucket_name, object_name):
     try:
         # Download the object from MinIO to a local file
         minio_client.fget_object(bucket_name, object_name, local_file_path)
-        logging.info(f"File '{object_name}' successfully downloaded from MinIO.")
+        logging.info(
+            f"File '{object_name}' successfully downloaded from MinIO.")
 
         # Process the file here
         sendProcessedInfoToDb(local_file_path)
@@ -111,13 +120,15 @@ def fileProcessor(bucket_name, object_name):
     except Exception as e:
         logging.info(f"Unexpected error: {e}")
 
+
 def sendProcessedInfoToDb(localFilePath):
     dataCoffeePrice = pd.read_csv(localFilePath)
 
-    coffeePrice = dataCoffeePrice ["value"]
-    atTime = dataCoffeePrice ["date"]
+    coffeePrice = dataCoffeePrice["value"]
+    atTime = dataCoffeePrice["date"]
 
-    logging.info(f"The coffee price is {coffeePrice.iloc[0]} at date {atTime.iloc[0]}.")
+    logging.info(
+        f"The coffee price is {coffeePrice.iloc[0]} at date {atTime.iloc[0]}.")
 
     pg_hook = PostgresHook(postgres_conn_id='postgres')
 
@@ -130,7 +141,8 @@ def sendProcessedInfoToDb(localFilePath):
     pg_hook.run(insertSql)
 
     logging.info("Newest price instance added to the coffee_price table")
-    
+
+
 # Define default arguments for the DAG
 default_args = {
     'owner': 'your_name',
@@ -165,5 +177,3 @@ process_files_task = PythonOperator(
 
 # Define task dependencies
 check_files_task >> process_files_task
-
-

@@ -1,6 +1,7 @@
 from minio import Minio
 from minio.error import S3Error
 
+
 def download_from_minio(bucket_name, object_name):
     minio_client = Minio(
         "minio:9000",  # MinIO server address
