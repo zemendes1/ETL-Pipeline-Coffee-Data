@@ -17,6 +17,7 @@ The project is divided into two Docker Compose stacks:
 1. Main stack: Includes MinIO, Grafana, a Python script to initialize the system, and the PostgreSQL database.
 2. Airflow stack: Contains Airflow and its internal services for orchestration.
 
+![Diagram Image](images/diagram.png)
 
 ## Instructions
 
